@@ -1,6 +1,6 @@
 > **NOTICE**
 
-> This project is forked from github.com/iignatov/LightOpenID. Extending for Ntpc OpenID service and add a litte auto settings. It must run with openid.php together.
+> This project is forked from github.com/iignatov/LightOpenID. Extending for Ntpc OpenID service and add some settings. It must run with openid.php together.
 
 # NtpcOpenID
 
