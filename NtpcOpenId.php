@@ -17,7 +17,7 @@ class NtpcOpenId extends LightOpenId
      *
      * @return void
      */
-    public function getNtpcAttributes()
+    private function getNtpcAttributes()
     {
         $attr = $this->getAttributes();
         $tmp = explode('/', $this->identity);
@@ -43,7 +43,7 @@ class NtpcOpenId extends LightOpenId
                     }
                 break;
                 default:
-                $ntpcAttr[$field_name] = $field_value;
+                $ntpcAttr[$field_name] = $attr[$field_value];
             }
         }
 
