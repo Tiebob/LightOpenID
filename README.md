@@ -36,7 +36,7 @@ Lightweight PHP5 library for easy OpenID authentication.
 1. Authentication with the provider:
 
    ```php
-   $openid = new LightOpenID('my-host.example.org');
+   $openid = new NtpcOpenID('my-host.example.org');
 
    header('Location: ' . $openid->authUrl());
    ```
@@ -44,7 +44,7 @@ Lightweight PHP5 library for easy OpenID authentication.
 2. Verification:
 
    ```php
-   $openid = new LightOpenID('my-host.example.org');
+   $openid = new NtpcOpenID('my-host.example.org');
 
    if ($openid->mode) {
      echo $openid->validate() ? 'Logged in.' : 'Failed!';
@@ -56,12 +56,12 @@ Lightweight PHP5 library for easy OpenID authentication.
 Without setting `$openid->required` values, it has default values. If full values needed, use `$openid->setRequired(1)`. For example:
 
 ```php
-$openid = new LightOpenID('my-host.example.org');
+$openid = new NtpcOpenID('my-host.example.org');
 header('Location: ' . $openid->authUrl());
 ```
 
 ```php
-$openid = new LightOpenID('my-host.example.org');
+$openid = new NtpcOpenID('my-host.example.org');
 $openid->setRequired(1);
 header('Location: ' . $openid->authUrl());
 ```
