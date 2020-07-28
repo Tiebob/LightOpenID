@@ -8,6 +8,8 @@ class NtpcOpenId extends LightOpenId
     public function __construct($host)
     {
         parent::__construct($host);
+        $this->identity = "https://openid.ntpc.edu.tw";
+        $this->setRequried();
     }
 
     /**
@@ -20,22 +22,31 @@ class NtpcOpenId extends LightOpenId
         $attr = $this->getAttributes();
         $tmp = explode('/', $this->identity);
         $ntpcAttr['account'] = end($tmp); // 帳號
-        $ntpcAttr['cname'] = $attr['namePerson']; // 姓名
-        $ntpcAttr['gender'] = $attr['person/gender']; // 性別
-        $ntpcAttr['birth'] = $attr['birthDate']; // 生日
-        $ntpcAttr['email'] = $attr['contact/email']; // 公務信箱
-        $ntpcAttr['school_title'] = $attr['contact/country/home']; // 學校簡稱
-        $ntpcAttr['grade'] = substr($attr['pref/language'], 0, 2); // 年級
-        $ntpcAttr['class'] = substr($attr['pref/language'], 2, 2); // 班級
-        $ntpcAttr['class_no'] = substr($attr['pref/language'], 4, 2); // 座號
 
-        foreach (json_decode($attr['pref/timezone']) as $item) {
-            $ntpcAttr['workplaces'][$item->id]['school_title'] = $item->name; // 單位全銜
-            $ntpcAttr['workplaces'][$item->id]['role'] = $item->role; // 身分別
-            $ntpcAttr['workplaces'][$item->id]['title'] = $item->title; // 職稱別
-            $ntpcAttr['workplaces'][$item->id]['groups'] = $item->groups; // 職務別
-            $ntpcAttr['workplaces'][$item->id]['groups_string'] = $item->groups; // 職務別
+        foreach($this->required as $field_name => $field_value){
+
+            switch($field_name){
+                case 'class_info':
+                    $ntpcAttr['grade'] = substr($attr['pref/language'], 0, 2); // 年級
+                    $ntpcAttr['class'] = substr($attr['pref/language'], 2, 2); // 班級
+                    $ntpcAttr['class_no'] = substr($attr['pref/language'], 4, 2); // 座號
+                break;
+                case 'permission_info':
+                    foreach (json_decode($attr['pref/timezone']) as $item) {
+                        $ntpcAttr['workplaces'][$item->id]['school_title'] =
+                            $item->name; // 單位全銜
+                        $ntpcAttr['workplaces'][$item->id]['role'] = $item->role; // 身分別
+                        $ntpcAttr['workplaces'][$item->id]['title'] = $item->title; // 職稱別
+                        $ntpcAttr['workplaces'][$item->id]['groups'] = $item->groups; // 職務別
+                        $ntpcAttr['workplaces'][$item->id]['groups_string'] =
+                            $item->groups; // 職務別
+                    }
+                break;
+                default:
+                $ntpcAttr[$field_name] = $field_value;
+            }
         }
+
         return $ntpcAttr;
     }
 
@@ -180,36 +191,28 @@ class NtpcOpenId extends LightOpenId
         }
     }
 
-    public function setRequried($required_type = 1)
+    public function setRequried($required_type = 0)
     {
-        if ($required_type === 2) {
+        if ($required_type) {
             $this->required = [
-                'namePerson/friendly',
-                'contact/email',
-                'namePerson',
-                'birthDate',
-                'person/gender',
-                'contact/postalCode/home',
-                'contact/country/home',
-                'pref/language',
-                'pref/timezone',
+                'nickname' => 'namePerson/friendly',
+                'email' => 'contact/email',
+                'cname' => 'namePerson',
+                'birth' => 'birthDate',
+                'gender' => 'person/gender',
+                'identity_code' => 'contact/postalCode/home',
+                'school_title' => 'contact/country/home',
+                'class_info' => 'pref/language',
+                'permission_info' => 'pref/timezone',
             ];
         } else {
             $this->required = [
-                'contact/email',
-                'namePerson',
-                'contact/country/home',
-                'pref/timezone',
-                'pref/language',
-            ];
+                'email' => 'contact/email',
+                'cname' => 'namePerson',
+                'school_title' => 'contact/country/home',
+                'class_info' => 'pref/language',
+                'permission_info' => 'pref/timezone',
+                ];
         }
-    }
-
-    public function is_officer(){
-        
-    }
-
-    public function is_admin(){
-        
     }
 }
