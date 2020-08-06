@@ -2,14 +2,6 @@
 
 > This project is forked from github.com/iignatov/LightOpenID. Extending for Ntpc OpenID service and add some settings. It must run with openid.php together.
 
-# NtpcOpenID
-
-NtpcOpenID library for easy Ntpc OpenID Authentication and Auhtorization.
-
-- `Version....:` [**0.1**]
-- `Source code:` [Official GitHub Repo :octocat:][5]
-- `Author.....:` [Tiebob]
-
 # LightOpenID
 
 Lightweight PHP5 library for easy OpenID authentication.
@@ -21,11 +13,21 @@ Lightweight PHP5 library for easy OpenID authentication.
 - `Homepage...:` http://code.google.com/p/lightopenid/
 - `Author.....:` [Mewp][4]
 
+# NtpcOpenID
+
+NtpcOpenID library for easy Ntpc OpenID Authentication and Auhtorization.
+
+- `Version....:` [**1.3.2**][5]
+- `Source code:` [Official GitHub Repo :octocat:][6]
+- `Author.....:` [Tiebob][7]
+
 [1]: https://github.com/iignatov/LightOpenID/archive/master.zip
 [2]: https://github.com/iignatov/LightOpenID/blob/master/CHANGELOG.md
 [3]: https://github.com/Mewp/lightopenid
 [4]: https://github.com/Mewp
 [5]: https://github.com/Tiebob/LightOpenID/archive/master.zip
+[6]: https://github.com/Tiebob/LightOpenID
+[7]: https://github.com/Tiebob
 
 ## Quick start
 
